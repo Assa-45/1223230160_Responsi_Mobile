@@ -17,6 +17,7 @@ class AppState extends ChangeNotifier {
   bool get isLoggedIn => _isLoggedIn;
   
   List<FavItem> get currentCart => _fav;
+  int get favItemCount => _fav.fold(0, (s, i) => s + i.quantity);
 
   Future<void> tryAutoLogin() async {
     final savedUsername = await _session.getSavedUsername();
@@ -61,6 +62,7 @@ class AppState extends ChangeNotifier {
       return FavItem(
         anime: anime,
         username: map['username'] as String,
+        quantity: map['quantity'] as int,
       );
     }).toList();
 
@@ -90,14 +92,14 @@ class AppState extends ChangeNotifier {
   }
 
   // ─── ADD TO FAV
-  Future<void> addToFav(Anime anime) async {
+  Future<void> addToFav(Anime anime, int quantity) async {
     if (_currentUsername == null) return;
+    final existingIndex = _fav.indexWhere((i) => i.anime.id == anime.id);
     _fav.add(FavItem(
         anime: anime,
         username: _currentUsername!,
+        quantity: quantity
     ));
-
-    final existingIndex = _fav.indexWhere((i) => i.anime.id == anime.id);
 
     notifyListeners();
     await _persistFav(); // langsung simpan ke Sembast

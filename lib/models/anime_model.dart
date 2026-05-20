@@ -4,8 +4,8 @@ class Anime {
   final String synopsis;
   final double rating;
   final int episode;
-  final List<String> thumbnail;
-  final List<String> images;
+  final String thumbnail;
+  final String images;
 
   Anime({
     required this.id,
@@ -24,8 +24,8 @@ class Anime {
       synopsis: json['synopsis'] ?? '',
       rating: (json['averageRating'] ?? 0).toDouble(),
       episode: json['episode'] ?? 0,
-      images: List<String>.from(json['posterImage'] ?? []),
-      thumbnail: List<String>.from(json['CoverImage'] ?? []),
+      images: json['posterImage'] ?? '',
+      thumbnail: json['coverImage'] ?? '',
     );
   }
 }
@@ -33,9 +33,11 @@ class Anime {
 class FavItem {
   final Anime anime;
   final String username;
+  int quantity;
 
   FavItem({
     required this.anime,
     required this.username,
+    required this.quantity,
   });
 }
