@@ -158,58 +158,6 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Widget _buildStatsRow(int cartItems, int uniqueProducts) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 16),
-      decoration: BoxDecoration(
-        color: const Color(0xFF13131F),
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: Colors.white.withOpacity(0.06)),
-      ),
-      child: Row(
-        children: [
-          _buildStatItem('$cartItems', 'Total Item\ndi Keranjang'),
-          _buildStatDivider(),
-          _buildStatItem('$uniqueProducts', 'Produk\nUnik'),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildStatItem(String value, String label) {
-    return Expanded(
-      child: Column(
-        children: [
-          Text(
-            value,
-            style: GoogleFonts.dmSans(
-              fontSize: 22,
-              fontWeight: FontWeight.w800,
-              color: Colors.white,
-            ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            label,
-            textAlign: TextAlign.center,
-            style: GoogleFonts.dmSans(
-              fontSize: 11,
-              color: Colors.white38,
-              height: 1.4,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildStatDivider() {
-    return Container(
-      width: 1,
-      height: 40,
-      color: Colors.white.withOpacity(0.07),
-    );
-  }
 
   Widget _buildKesanCard() {
     return Container(

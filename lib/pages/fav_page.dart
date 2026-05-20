@@ -51,15 +51,6 @@ class _FavoritePageState extends State<FavoritePage> {
                           ],
                         ),
                       ),
-                      if (fav.isNotEmpty)
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 10, vertical: 5),
-                          decoration: BoxDecoration(
-                            color: const Color(0xFF6C63FF).withOpacity(0.15),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
                     ],
                   ),
                 ),

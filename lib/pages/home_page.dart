@@ -114,11 +114,11 @@ class _HomePageState extends State<HomePage> {
                     color: Colors.white38,
                   ),
                 ),
-                const SizedBox(width: 4),
+                const SizedBox(width: 6),
                 Text(
                   username,
                   style: GoogleFonts.dmSans(
-                    fontSize: 20,
+                    fontSize: 16,
                     fontWeight: FontWeight.w700,
                     color: Colors.white,
                   ),
