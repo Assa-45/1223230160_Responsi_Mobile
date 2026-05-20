@@ -90,14 +90,14 @@ class ProfilePage extends StatelessWidget {
             height: 90,
             decoration: BoxDecoration(
               gradient: const LinearGradient(
-                colors: [Color(0xFF6C63FF), Color(0xFFFF6584)],
+                colors: [Colors.redAccent, Color(0xFFFF6584)],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(
-                  color: const Color(0xFF6C63FF).withOpacity(0.4),
+                  color: Colors.redAccent.withOpacity(0.4),
                   blurRadius: 24,
                   offset: const Offset(0, 8),
                 ),
@@ -131,23 +131,23 @@ class ProfilePage extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
             decoration: BoxDecoration(
-              color: const Color(0xFF6C63FF).withOpacity(0.15),
+              color: Colors.redAccent.withOpacity(0.15),
               borderRadius: BorderRadius.circular(20),
               border: Border.all(
-                  color: const Color(0xFF6C63FF).withOpacity(0.3)),
+                  color: Colors.redAccent.withOpacity(0.3)),
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 const Icon(Icons.verified_rounded,
-                    color: Color(0xFF6C63FF), size: 14),
+                    color: Colors.redAccent, size: 14),
                 const SizedBox(width: 5),
                 Text(
                   'Member Keripikroll',
                   style: GoogleFonts.dmSans(
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
-                    color: const Color(0xFF6C63FF),
+                    color: Colors.redAccent,
                   ),
                 ),
               ],
@@ -226,7 +226,7 @@ class ProfilePage extends StatelessWidget {
           Row(
             children: [
               const Icon(Icons.info_outline_rounded,
-                  color: Color(0xFF6C63FF), size: 18),
+                  color: Colors.redAccent, size: 18),
               const SizedBox(width: 8),
               Text(
                 'Kesan',
@@ -268,7 +268,7 @@ class ProfilePage extends StatelessWidget {
           Row(
             children: [
               const Icon(Icons.mail_outline_rounded,
-                  color: Color(0xFF6C63FF), size: 18),
+                  color: Colors.redAccent, size: 18),
               const SizedBox(width: 8),
               Text(
                 'Pesan',
@@ -309,7 +309,7 @@ class ProfilePage extends StatelessWidget {
           Row(
             children: [
               const Icon(Icons.person_outline_rounded,
-                  color: Color(0xFF6C63FF), size: 18),
+                  color: Colors.redAccent, size: 18),
               const SizedBox(width: 8),
               Text(
                 'Informasi Akun',

@@ -48,7 +48,6 @@ class _HomePageState extends State<HomePage> {
         _isLoading = false;
       });
     } catch (e) {
-      print('ERROR: $e');
       if(!mounted) return;
       setState(() {
         _error = e.toString();
@@ -105,7 +104,7 @@ class _HomePageState extends State<HomePage> {
       child: Row(
         children: [
           Expanded(
-            child: Column(
+            child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
@@ -115,7 +114,7 @@ class _HomePageState extends State<HomePage> {
                     color: Colors.white38,
                   ),
                 ),
-                const SizedBox(height: 2),
+                const SizedBox(width: 4),
                 Text(
                   username,
                   style: GoogleFonts.dmSans(
@@ -139,7 +138,7 @@ class _HomePageState extends State<HomePage> {
                   child: Container(
                     padding: const EdgeInsets.all(4),
                     decoration: const BoxDecoration(
-                      color: Color(0xFF6C63FF),
+                      color: Colors.redAccent,
                       shape: BoxShape.circle,
                     ),
                     child: Text(
@@ -191,7 +190,7 @@ class _HomePageState extends State<HomePage> {
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(14),
-            borderSide: const BorderSide(color: Color(0xFF6C63FF), width: 1.2),
+            borderSide: const BorderSide(color: Colors.redAccent, width: 1.2),
           ),
           contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         ),
@@ -255,7 +254,7 @@ class _HomePageState extends State<HomePage> {
           const SizedBox(height: 16),
           ElevatedButton(
             onPressed: _fetchAnimes,
-            style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF6C63FF)),
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent),
             child: Text('Coba Lagi', style: GoogleFonts.dmSans(color: Colors.white)),
           ),
         ],
@@ -286,15 +285,13 @@ class _AnimeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('thumbnail: ${anime.thumbnail}');
-    print('images: ${anime.images}');
     return GestureDetector(
-      // onTap: () => Navigator.push(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (_) => AnimeDetailPage(anime: anime),
-      //   ),
-      // ),
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => AnimeDetailPage(anime: anime),
+        ),
+      ),
       child: Container(
         decoration: BoxDecoration(
           color: const Color(0xFF13131F),
@@ -348,6 +345,7 @@ class _AnimeCard extends StatelessWidget {
                             color: Colors.white,
                           ),
                         ),
+                        SizedBox(height: 3),
                          Text(
                           '${anime.ageRating} • ${anime.episode} Episodes' ,
                           maxLines: 1,
@@ -358,6 +356,7 @@ class _AnimeCard extends StatelessWidget {
                             color: Colors.white54,
                           ),
                         ),
+                        SizedBox(height: 3),
                         // Rating 
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,

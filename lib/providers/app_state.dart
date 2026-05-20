@@ -16,7 +16,7 @@ class AppState extends ChangeNotifier {
   String? get currentUsername => _currentUsername;
   bool get isLoggedIn => _isLoggedIn;
   
-  List<FavItem> get currentCart => _fav;
+  List<FavItem> get currentFav => _fav;
   int get favItemCount => _fav.fold(0, (s, i) => s + i.quantity);
 
   Future<void> tryAutoLogin() async {
@@ -71,36 +71,37 @@ class AppState extends ChangeNotifier {
   }
 
   // ─── SIMPAN FAV ke Sembast 
-  Future<void> _persistFav() async {
+ Future<void> _persistFav() async {
     if (_currentUsername == null) return;
-
-    // Konversi FavItem → Map untuk disimpan
     final rawItems = _fav.map((item) => {
       'username': item.username,
+      'quantity': item.quantity,
       'anime': {
         'id': item.anime.id,
-        'title': item.anime.title,
-        'description': item.anime.synopsis,
-        'rating': item.anime.rating,
-        'episode': item.anime.episode,
-        'thumbnail': item.anime.thumbnail,
-        'images': item.anime.images,
+        'attributes': {
+          'titles': {'en_jp': item.anime.title},
+          'synopsis': item.anime.synopsis,
+          'ageRating': item.anime.ageRating,
+          'averageRating': item.anime.rating.toString(),
+          'episodeCount': item.anime.episode,
+          'posterImage': {'medium': item.anime.images},
+          'coverImage': {'small': item.anime.thumbnail},
+        }
       },
     }).toList();
-
-    await _db.saveCart(_currentUsername!, rawItems);
+    await _db.saveFav(_currentUsername!, rawItems);
   }
 
   // ─── ADD TO FAV
   Future<void> addToFav(Anime anime, int quantity) async {
     if (_currentUsername == null) return;
     final existingIndex = _fav.indexWhere((i) => i.anime.id == anime.id);
+    if (existingIndex >= 0) return;
     _fav.add(FavItem(
         anime: anime,
         username: _currentUsername!,
         quantity: quantity
     ));
-
     notifyListeners();
     await _persistFav(); // langsung simpan ke Sembast
   }

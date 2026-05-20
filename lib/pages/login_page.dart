@@ -103,72 +103,22 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                       Center(
                         child: Column(
                           children: [
-                            Container(
-                              width: 72,
-                              height: 72,
-                              decoration: BoxDecoration(
-                                gradient: const LinearGradient(
-                                  colors: [Color(0xFF6C63FF), Color(0xFFFF6584)],
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomRight,
-                                ),
-                                borderRadius: BorderRadius.circular(20),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: const Color(0xFF6C63FF).withOpacity(0.4),
-                                    blurRadius: 24,
-                                    offset: const Offset(0, 8),
-                                  ),
-                                ],
-                              ),
-                              child: const Icon(Icons.storefront_rounded,
-                                  color: Colors.white, size: 38),
-                            ),
+                            Image.asset('logo.png', width: 120, height: 120, fit: BoxFit.contain),
                             const SizedBox(height: 20),
                             Text(
-                              'KERIPIKROLL',
-                              style: GoogleFonts.spaceMono(
+                              'Keripikroll',
+                              style: GoogleFonts.bubblegumSans(
                                 fontSize: 28,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.white,
                                 letterSpacing: 6,
                               ),
                             ),
-                            const SizedBox(height: 6),
-                            Center(
-                              child: Text(
-                                'Tonton anime kesukaanmu\ndengan kualitas tinggi',
-                                style: GoogleFonts.dmSans(
-                                  fontSize: 14,
-                                  color: Colors.white38,
-                                  letterSpacing: 0.3,
-                                ),
-                              ),
-                            ),
                           ],
                         ),
                       ),
 
-                      const SizedBox(height: 60),
-
-                      Text(
-                        'Selamat Datang!',
-                        style: GoogleFonts.dmSans(
-                          fontSize: 26,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                        ),
-                      ),
-                      const SizedBox(height: 6),
-                      Text(
-                        'Masuk ke akun kamu untuk melanjutkan',
-                        style: GoogleFonts.dmSans(
-                          fontSize: 14,
-                          color: Colors.white38,
-                        ),
-                      ),
-
-                      const SizedBox(height: 24),
+                      const SizedBox(height: 40),
 
                       // Username Field
                       _buildLabel('Username'),
@@ -251,14 +201,14 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                           child: Ink(
                             decoration: BoxDecoration(
                               gradient: const LinearGradient(
-                                colors: [Color(0xFF6C63FF), Color(0xFF9C63FF)],
+                                colors: [Colors.redAccent, Color.fromARGB(255, 232, 159, 137)],
                                 begin: Alignment.centerLeft,
                                 end: Alignment.centerRight,
                               ),
                               borderRadius: BorderRadius.circular(16),
                               boxShadow: [
                                 BoxShadow(
-                                  color: const Color(0xFF6C63FF).withOpacity(0.4),
+                                  color: Colors.redAccent.withOpacity(0.4),
                                   blurRadius: 20,
                                   offset: const Offset(0, 8),
                                 ),
@@ -339,7 +289,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
       decoration: InputDecoration(
         hintText: hint,
         hintStyle: GoogleFonts.dmSans(color: Colors.white24, fontSize: 14),
-        prefixIcon: Icon(icon, color: const Color(0xFF6C63FF), size: 20),
+        prefixIcon: Icon(icon, color: Colors.redAccent, size: 20),
         suffixIcon: isPassword
             ? IconButton(
                 icon: Icon(
@@ -364,7 +314,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
-          borderSide: const BorderSide(color: Color(0xFF6C63FF), width: 1.5),
+          borderSide: const BorderSide(color: Colors.redAccent, width: 1.5),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),

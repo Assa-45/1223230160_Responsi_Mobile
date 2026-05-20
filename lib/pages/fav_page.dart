@@ -19,7 +19,7 @@ class _FavoritePageState extends State<FavoritePage> {
       body: SafeArea(
         child: Consumer<AppState>(
           builder: (context, appState, _) {
-            final cart = appState.currentCart;
+            final fav = appState.currentFav;
             final username = appState.currentUsername ?? '';
 
             return Column(
@@ -42,7 +42,7 @@ class _FavoritePageState extends State<FavoritePage> {
                               ),
                             ),
                             Text(
-                              '@$username · ${cart.length} item',
+                              '@$username · ${fav.length} item',
                               style: GoogleFonts.dmSans(
                                 fontSize: 12,
                                 color: Colors.white38,
@@ -51,7 +51,7 @@ class _FavoritePageState extends State<FavoritePage> {
                           ],
                         ),
                       ),
-                      if (cart.isNotEmpty)
+                      if (fav.isNotEmpty)
                         Container(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 10, vertical: 5),
@@ -68,9 +68,9 @@ class _FavoritePageState extends State<FavoritePage> {
 
                 // Body
                 Expanded(
-                  child: cart.isEmpty
+                  child: fav.isEmpty
                       ? _buildEmpty(context)
-                      : _buildFavList(context, appState, cart),
+                      : _buildFavList(context, appState, fav),
                 ),
               ],
             );
@@ -95,7 +95,7 @@ class _FavoritePageState extends State<FavoritePage> {
                   Border.all(color: Colors.white.withOpacity(0.07), width: 1),
             ),
             child: const Icon(
-              Icons.shopping_bag_outlined,
+              Icons.movie_outlined,
               color: Colors.white24,
               size: 44,
             ),
@@ -180,7 +180,6 @@ class _FavItemCard extends StatelessWidget {
       ),
       child: Row(
         children: [
-          // Product image
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
             child: Image.network(
@@ -216,21 +215,20 @@ class _FavItemCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Qty badge
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF1A1A2E),
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(
-                            color: Colors.white.withOpacity(0.07)),
-                      ),
+                  const Icon(Icons.star_rounded, color: Color(0xFFFFC107), size: 13),
+                  const SizedBox(width: 3),
+                  Text(
+                    anime.rating.toStringAsFixed(1),
+                    style: GoogleFonts.dmSans(
+                      fontSize: 11,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
                     ),
-                  ],
-                ),
+                  ),
+                ],
+              ),
               ],
             ),
           ),
@@ -252,7 +250,7 @@ class _FavItemCard extends StatelessWidget {
                         color: Colors.white, fontWeight: FontWeight.w700),
                   ),
                   content: Text(
-                    'Hapus "${anime.title}" dari keranjang?',
+                    'Hapus "${anime.title}" dari favorit?',
                     style: GoogleFonts.dmSans(color: Colors.white60),
                   ),
                   actions: [

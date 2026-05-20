@@ -15,18 +15,18 @@ class _MainPageState extends State<MainPage> {
   int _currentIndex = 0;
 
   final List<Widget> _screens = [
-    const HomePage(),
-    const FavoritePage(),
-    const ProfilePage(),
+    const HomePage(key: ValueKey('home')),
+    const FavoritePage(key: ValueKey('favorite')),
+    const ProfilePage(key: ValueKey('profile')),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF0D0D0D),
-      body: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 300),
-        child: _screens[_currentIndex],
+      body: IndexedStack(
+        index: _currentIndex,
+        children: _screens,
       ),
       bottomNavigationBar: _buildBottomNav(),
     );
@@ -78,13 +78,13 @@ class _MainPageState extends State<MainPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
                 decoration: BoxDecoration(
                   color: isActive
-                      ? const Color(0xFF6C63FF).withOpacity(0.15)
+                      ? Colors.redAccent.withOpacity(0.15)
                       : Colors.transparent,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Icon(
                   isActive ? activeIcon : inactiveIcon,
-                  color: isActive ? const Color(0xFF6C63FF) : Colors.white38,
+                  color: isActive ?  Colors.redAccent : Colors.white38,
                   size: 24,
                 ),
               ),
@@ -94,7 +94,7 @@ class _MainPageState extends State<MainPage> {
                 style: GoogleFonts.dmSans(
                   fontSize: 11,
                   fontWeight: isActive ? FontWeight.w600 : FontWeight.w400,
-                  color: isActive ? const Color(0xFF6C63FF) : Colors.white38,
+                  color: isActive ? Colors.redAccent : Colors.white38,
                 ),
               ),
             ],

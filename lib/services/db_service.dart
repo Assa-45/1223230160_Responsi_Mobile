@@ -37,7 +37,7 @@ class DatabaseService {
   // ─── FAVORITE LOGIC
 
   // Simpan fav milik user tertentu
-  Future<void> saveCart(String username, List<Map<String, dynamic>> items) async {
+  Future<void> saveFav(String username, List<Map<String, dynamic>> items) async {
     final db = await database;
     // Key = username, value = map berisi list items
     await _favStore.record(username).put(db, {'items': items});
@@ -48,7 +48,7 @@ class DatabaseService {
     final db = await database;
     final record = await _favStore.record(username).get(db);
 
-    if (record == null) return []; // kalau user belum punya cart
+    if (record == null) return []; // kalau user belum punya fav
 
     final items = record['items'] as List? ?? [];
     return items.map((e) => Map<String, dynamic>.from(e as Map)).toList();
