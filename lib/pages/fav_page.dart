@@ -29,25 +29,6 @@ class _FavoritePageState extends State<FavoritePage> {
                   padding: const EdgeInsets.fromLTRB(20, 16, 20, 0),
                   child: Row(
                     children: [
-                      GestureDetector(
-                        onTap: () => Navigator.pop(context),
-                        child: Container(
-                          width: 42,
-                          height: 42,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFF1A1A2E),
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(
-                                color: Colors.white.withOpacity(0.07)),
-                          ),
-                          child: const Icon(
-                            Icons.arrow_back_ios_new_rounded,
-                            color: Colors.white70,
-                            size: 18,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 14),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -121,7 +102,7 @@ class _FavoritePageState extends State<FavoritePage> {
           ),
           const SizedBox(height: 24),
           Text(
-            'Keranjang Kosong',
+            'Anime Kosong',
             style: GoogleFonts.dmSans(
               fontSize: 20,
               fontWeight: FontWeight.w700,
@@ -136,35 +117,6 @@ class _FavoritePageState extends State<FavoritePage> {
               fontSize: 14,
               color: Colors.white38,
               height: 1.5,
-            ),
-          ),
-          const SizedBox(height: 32),
-          GestureDetector(
-            onTap: () => Navigator.pop(context),
-            child: Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 28, vertical: 14),
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [Color(0xFF6C63FF), Color(0xFF9C63FF)],
-                ),
-                borderRadius: BorderRadius.circular(14),
-                boxShadow: [
-                  BoxShadow(
-                    color: const Color(0xFF6C63FF).withOpacity(0.35),
-                    blurRadius: 16,
-                    offset: const Offset(0, 6),
-                  ),
-                ],
-              ),
-              child: Text(
-                'Mulai Nonton',
-                style: GoogleFonts.dmSans(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
-                ),
-              ),
             ),
           ),
         ],
@@ -194,7 +146,7 @@ class _FavoritePageState extends State<FavoritePage> {
                       color: Colors.redAccent, size: 18),
                   const SizedBox(width: 10),
                   Text(
-                    'Item dihapus dari keranjang',
+                    'Anime dihapus dari favorit',
                     style:
                         GoogleFonts.dmSans(color: Colors.white, fontSize: 13),
                   ),

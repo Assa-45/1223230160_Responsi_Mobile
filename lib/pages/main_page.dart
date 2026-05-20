@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'home_page.dart';
 import 'profile_page.dart';
+import 'fav_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -15,6 +16,7 @@ class _MainPageState extends State<MainPage> {
 
   final List<Widget> _screens = [
     const HomePage(),
+    const FavoritePage(),
     const ProfilePage(),
   ];
 
@@ -51,7 +53,8 @@ class _MainPageState extends State<MainPage> {
           child: Row(
             children: [
               _buildNavItem(0, Icons.home_rounded, Icons.home_outlined, 'Home'),
-              _buildNavItem(1, Icons.person_rounded, Icons.person_outline_rounded, 'Profile'),
+              _buildNavItem(1, Icons.favorite_rounded, Icons.favorite_outline_rounded, 'Favorite'),
+              _buildNavItem(2, Icons.person_rounded, Icons.person_outline_rounded, 'Profile'),
             ],
           ),
         ),

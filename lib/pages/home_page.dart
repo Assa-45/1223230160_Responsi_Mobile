@@ -5,7 +5,6 @@ import 'package:shimmer/shimmer.dart';
 import '../models/anime_model.dart';
 import '../providers/app_state.dart';
 import '../services/api_service.dart';
-import 'fav_page.dart';
 import 'detail_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,8 +18,6 @@ class _HomePageState extends State<HomePage> {
   List<Anime> _animes = [];
   bool _isLoading = true;
   String? _error;
-  String _selectedCategory = 'All';
-  List<String> _categories = ['All'];
   final _searchController = TextEditingController();
   String _searchQuery = '';
 
@@ -37,20 +34,22 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _fetchAnimes() async {
+    if(!mounted) return;
     setState(() {
       _isLoading = true;
       _error = null;
     });
     try {
-      final products = await ApiService().fetchAnimes();
-      final cats = products.map((a) => a).toSet().toList();
-      cats.sort();
+      final animes = await ApiService().fetchAnimes();
+
+      if(!mounted) return;
       setState(() {
         _animes = animes;
-        _categories = ['All'];
         _isLoading = false;
       });
     } catch (e) {
+      print('ERROR: $e');
+      if(!mounted) return;
       setState(() {
         _error = e.toString();
         _isLoading = false;
@@ -58,7 +57,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  List<Anime> get _filteredProducts {
+  List<Anime> get _filteredAnimes {
     return _animes.where((a) {
       final matchSearch = _searchQuery.isEmpty ||
           a.title.toLowerCase().contains(_searchQuery.toLowerCase());
@@ -82,18 +81,17 @@ class _HomePageState extends State<HomePage> {
             // Search bar
             _buildSearchBar(),
 
-            // Category chips
-            if (!_isLoading && _error == null) _buildCategories(),
+            SizedBox(height: 24),
 
-            // Product grid
+            // Anime grid
             Expanded(
               child: _isLoading
                   ? _buildShimmer()
                   : _error != null
                       ? _buildError()
-                      : _filteredProducts.isEmpty
+                      : _filteredAnimes.isEmpty
                           ? _buildEmpty()
-                          : _buildProductGrid(),
+                          : _buildAnimeGrid(),
             ),
           ],
         ),
@@ -134,26 +132,6 @@ class _HomePageState extends State<HomePage> {
           Stack(
             clipBehavior: Clip.none,
             children: [
-              GestureDetector(
-                onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const FavoritePage()),
-                ),
-                child: Container(
-                  width: 46,
-                  height: 46,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF1A1A2E),
-                    borderRadius: BorderRadius.circular(14),
-                    border: Border.all(color: Colors.white.withOpacity(0.07)),
-                  ),
-                  child: const Icon(
-                    Icons.shopping_bag_outlined,
-                    color: Colors.white70,
-                    size: 22,
-                  ),
-                ),
-              ),
               if (favCount > 0)
                 Positioned(
                   top: -4,
@@ -221,53 +199,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildCategories() {
-    return SizedBox(
-      height: 52,
-      child: ListView.builder(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-        scrollDirection: Axis.horizontal,
-        itemCount: _categories.length,
-        itemBuilder: (_, i) {
-          final cat = _categories[i];
-          final isSelected = cat == _selectedCategory;
-          return GestureDetector(
-            onTap: () => setState(() => _selectedCategory = cat),
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 200),
-              margin: const EdgeInsets.only(right: 8),
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-              decoration: BoxDecoration(
-                gradient: isSelected
-                    ? const LinearGradient(
-                        colors: [Color(0xFF6C63FF), Color(0xFF9C63FF)],
-                      )
-                    : null,
-                color: isSelected ? null : const Color(0xFF1A1A2E),
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(
-                  color: isSelected
-                      ? Colors.transparent
-                      : Colors.white.withOpacity(0.07),
-                ),
-              ),
-              child: Text(
-                cat,
-                style: GoogleFonts.dmSans(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                  color: isSelected ? Colors.white : Colors.white54,
-                ),
-              ),
-            ),
-          );
-        },
-      ),
-    );
-  }
-
-  Widget _buildProductGrid() {
-    final products = _filteredProducts;
+  Widget _buildAnimeGrid() {
+    final animes = _filteredAnimes;
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
       child: GridView.builder(
@@ -277,8 +210,8 @@ class _HomePageState extends State<HomePage> {
           crossAxisSpacing: 12,
           childAspectRatio: 0.72,
         ),
-        itemCount: products.length,
-        itemBuilder: (_, i) => _AnimeCard(anime: anime[i]),
+        itemCount: animes.length,
+        itemBuilder: (_, i) => _AnimeCard(anime: animes[i]),
       ),
     );
   }
@@ -338,7 +271,7 @@ class _HomePageState extends State<HomePage> {
           const Icon(Icons.search_off_rounded, color: Colors.white24, size: 48),
           const SizedBox(height: 16),
           Text(
-            'Produk tidak ditemukan',
+            'Anime tidak ditemukan',
             style: GoogleFonts.dmSans(color: Colors.white54, fontSize: 16),
           ),
         ],
@@ -353,13 +286,15 @@ class _AnimeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('thumbnail: ${anime.thumbnail}');
+    print('images: ${anime.images}');
     return GestureDetector(
-      onTap: () => Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (_) => AnimeDetailPage(anime: anime),
-        ),
-      ),
+      // onTap: () => Navigator.push(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder: (_) => AnimeDetailPage(anime: anime),
+      //   ),
+      // ),
       child: Container(
         decoration: BoxDecoration(
           color: const Color(0xFF13131F),
@@ -378,7 +313,7 @@ class _AnimeCard extends StatelessWidget {
                   fit: StackFit.expand,
                   children: [
                     Image.network(
-                      anime.thumbnail,
+                      anime.images,
                       fit: BoxFit.cover,
                       errorBuilder: (_, __, ___) => Container(
                         color: const Color(0xFF1A1A2E),
@@ -413,14 +348,19 @@ class _AnimeCard extends StatelessWidget {
                             color: Colors.white,
                           ),
                         ),
-                      ],
-                    ),
-                    
-                    // Rating & Price
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                         Text(
+                          '${anime.ageRating} • ${anime.episode} Episodes' ,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: GoogleFonts.dmSans(
+                            fontSize: 12,
+                            fontWeight: FontWeight.normal,
+                            color: Colors.white54,
+                          ),
+                        ),
+                        // Rating 
                         Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Icon(Icons.star_rounded, color: Color(0xFFFFC107), size: 13),
                             const SizedBox(width: 3),
@@ -428,7 +368,7 @@ class _AnimeCard extends StatelessWidget {
                               anime.rating.toStringAsFixed(1),
                               style: GoogleFonts.dmSans(
                                 fontSize: 11,
-                                color: Colors.white54,
+                                color: Colors.white,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),

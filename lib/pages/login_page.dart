@@ -126,7 +126,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                             ),
                             const SizedBox(height: 20),
                             Text(
-                              'CHRISSAN',
+                              'KERIPIKROLL',
                               style: GoogleFonts.spaceMono(
                                 fontSize: 28,
                                 fontWeight: FontWeight.w700,
@@ -135,12 +135,14 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                               ),
                             ),
                             const SizedBox(height: 6),
-                            Text(
-                              'Belanja tanpa batas, harga terbaik',
-                              style: GoogleFonts.dmSans(
-                                fontSize: 14,
-                                color: Colors.white38,
-                                letterSpacing: 0.3,
+                            Center(
+                              child: Text(
+                                'Tonton anime kesukaanmu\ndengan kualitas tinggi',
+                                style: GoogleFonts.dmSans(
+                                  fontSize: 14,
+                                  color: Colors.white38,
+                                  letterSpacing: 0.3,
+                                ),
                               ),
                             ),
                           ],
@@ -166,7 +168,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                         ),
                       ),
 
-                      const SizedBox(height: 40),
+                      const SizedBox(height: 24),
 
                       // Username Field
                       _buildLabel('Username'),
@@ -291,7 +293,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
 
                       Center(
                         child: Text(
-                          '© 2026 Chrissan. All rights reserved.',
+                          '© 2026 Kripikroll. All rights reserved.',
                           style: GoogleFonts.dmSans(
                             fontSize: 12,
                             color: Colors.white24,
